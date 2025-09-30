@@ -4,81 +4,633 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>武宏梅 - 个人简介</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background: #f7f7f7;
+            box-sizing: border-box;
         }
-        .profile-container {
-            max-width: 600px;
-            margin: 40px auto;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            padding: 24px;
+        
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
         }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .profile-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+        
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
             display: block;
-            margin: 0 auto 16px auto;
+            margin: 0 auto 20px auto;
+            border: 5px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
         }
-        h1 {
+        
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+        
+        .name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .title {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .bio {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            color: #667eea;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: #667eea;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .skill-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 15px;
             text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .skill-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .skill-level {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .project-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .project-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tech-tag {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .education-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .education-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .education-info h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .education-info p {
+            color: #666;
+        }
+        
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .hobby-item {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .hobby-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .hobby-icon {
             font-size: 2rem;
-            margin: 0 0 8px 0;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .hobby-name {
+            font-weight: 600;
             color: #333;
         }
-        h2 {
-            text-align: center;
-            font-size: 1.1rem;
-            color: #666;
-            margin: 0 0 16px 0;
+        
+        .personal-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
         }
-        .desc {
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .info-item:hover {
+            transform: translateY(-3px);
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .info-content h4 {
+            color: #333;
+            margin-bottom: 5px;
             font-size: 1rem;
-            color: #444;
-            line-height: 1.7;
-            margin-bottom: 12px;
         }
+        
+        .info-content p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
         @media (max-width: 768px) {
-            .profile-container {
-                max-width: 90vw;
-                padding: 16px;
+            .container {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
-            h1 {
+            
+            .profile-card {
+                position: static;
+                padding: 30px 20px;
+            }
+            
+            .name {
+                font-size: 2rem;
+            }
+            
+            .avatar {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .profile-card {
+                padding: 20px 15px;
+            }
+            
+            .name {
                 font-size: 1.5rem;
             }
-        }
-        @media (max-width: 480px) {
-            .profile-container {
-                padding: 8px;
-            }
+            
             .avatar {
-                width: 72px;
-                height: 72px;
+                width: 100px;
+                height: 100px;
             }
-            h1 {
-                font-size: 1.2rem;
+            
+            .section {
+                padding: 15px;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
 </head>
 <body>
-    <div class="profile-container">
-        <img class="avatar" src="https://api.dicebear.com/7.x/personas/svg?seed=Wu" alt="武宏梅头像" />
-        <h1>武宏梅444</h1>
-        <h2>河南工业大学 · 学生</h2>
-        <div class="desc">
-            大家好，我是武宏梅，河南工业大学的一名在校学生。热爱学习，积极参与各类学术与社会活动，注重个人全面发展。专业方向为信息技术，具备良好的团队协作能力和创新精神。希望在大学期间不断提升自我，积累知识与经验，为未来发展打下坚实基础。
+    <div class="container">
+        <div class="profile-card fade-in">
+            <img class="avatar" src="touxiang.jpg" alt="武宏梅头像" />
+            <h1 class="name">武宏梅</h1>
+            <h2 class="title">河南工业大学 · 网络与新媒体专业学生</h2>
+            <div class="bio">
+                来自山西阳泉，河南工业大学嵩山南路校区新闻与传播学院2023届网络与新媒体专业学生。热爱学习，积极参与各类学术与社会活动，注重个人全面发展。具备良好的团队协作能力和创新精神，希望在大学期间不断提升自我，积累知识与经验。
+            </div>
+            <div class="contact-info">
+                <a href="mailto:example@email.com" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>邮箱</span>
+                </a>
+                <a href="#" class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="#" class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
         </div>
-        <div class="desc">
-            兴趣爱好包括编程、阅读、运动和志愿服务。欢迎交流与合作！
+        
+        <div class="main-content">
+            <div class="section fade-in">
+                <h2 class="section-title">
+                    <i class="fas fa-code"></i>
+                    技能专长
+                </h2>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-name">新媒体运营</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">内容创作</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">视频剪辑</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">平面设计</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">数据分析</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">网页设计</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section fade-in">
+                <h2 class="section-title">
+                    <i class="fas fa-project-diagram"></i>
+                    项目经历
+                </h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3 class="project-title">校园新媒体运营</h3>
+                        <p class="project-desc">负责学校官方微信公众号运营，策划并执行多个校园活动宣传，提升粉丝互动率。</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">微信运营</span>
+                            <span class="tech-tag">内容策划</span>
+                            <span class="tech-tag">数据分析</span>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">短视频创作项目</h3>
+                        <p class="project-desc">制作校园生活主题短视频，在抖音、B站等平台发布，累计播放量超过10万。</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">视频剪辑</span>
+                            <span class="tech-tag">创意策划</span>
+                            <span class="tech-tag">平台运营</span>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">新闻采编实践</h3>
+                        <p class="project-desc">参与校园新闻采编工作，撰写多篇新闻报道，提升新闻敏感度和写作能力。</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">新闻写作</span>
+                            <span class="tech-tag">采访技巧</span>
+                            <span class="tech-tag">编辑排版</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section fade-in">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    个人信息
+                </h2>
+                <div class="personal-info-grid">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>家乡</h4>
+                            <p>山西阳泉</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-birthday-cake"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>生日</h4>
+                            <p>农历十月初三</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section fade-in">
+                <h2 class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    教育背景
+                </h2>
+                <div class="education-item">
+                    <div class="education-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="education-info">
+                        <h3>河南工业大学 · 嵩山南路校区</h3>
+                        <p>新闻与传播学院 · 网络与新媒体专业 · 2023届</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section fade-in">
+                <h2 class="section-title">
+                    <i class="fas fa-heart"></i>
+                    兴趣爱好
+                </h2>
+                <div class="hobbies-grid">
+                    <div class="hobby-item">
+                        <div class="hobby-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="hobby-name">视频制作</div>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="hobby-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div class="hobby-name">摄影</div>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="hobby-icon">
+                            <i class="fas fa-pen-fancy"></i>
+                        </div>
+                        <div class="hobby-name">写作</div>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="hobby-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <div class="hobby-name">设计</div>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="hobby-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="hobby-name">阅读</div>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="hobby-icon">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <div class="hobby-name">运动</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    
+    <script>
+        // 添加滚动动画效果
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // 观察所有section元素
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+        
+        // 技能进度条动画
+        const skillBars = document.querySelectorAll('.skill-progress');
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBar = entry.target;
+                    const width = progressBar.style.width;
+                    progressBar.style.width = '0%';
+                    setTimeout(() => {
+                        progressBar.style.width = width;
+                    }, 200);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        skillBars.forEach(bar => {
+            skillObserver.observe(bar);
+        });
+    </script>
 </body>
 </html>
